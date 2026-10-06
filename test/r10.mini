@@ -1,0 +1,17 @@
+begin
+  integer function outer(a);
+  begin
+    integer function inner(b);
+    begin
+      integer t;
+      t := b+1;
+      write(t)
+    end;
+    integer x;
+    x := a*2;
+    write(x)
+  end;
+  integer y;
+  read(y);
+  y := outer(y)
+end

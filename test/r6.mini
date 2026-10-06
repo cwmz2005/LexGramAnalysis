@@ -1,0 +1,5 @@
+begin
+  integer x;
+  read(x);
+  if x>0 then write(x) else write(0)
+end

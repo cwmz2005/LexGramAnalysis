@@ -1,0 +1,4 @@
+begin
+  integer x;
+  if x>0 write(x) else write(0)
+end

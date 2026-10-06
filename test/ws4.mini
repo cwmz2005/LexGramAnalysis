@@ -1,0 +1,10 @@
+begin
+  integer function f(a);
+  begin
+    integer t;
+    t := a*b;
+    write(t)
+  end;
+  integer x;
+  read(x)
+end

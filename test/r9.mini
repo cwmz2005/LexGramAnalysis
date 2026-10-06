@@ -1,0 +1,13 @@
+begin
+  integer function f(a);
+  begin
+    integer t;
+    t := a*a;
+    write(t)
+  end;
+  integer x;
+  integer y;
+  read(x);
+  y := f(x+1);
+  write(y)
+end

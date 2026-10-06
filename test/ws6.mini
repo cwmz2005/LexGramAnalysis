@@ -1,0 +1,10 @@
+begin
+  integer function f(a);
+  begin
+    integer t;
+    t := a;
+    write(t)
+  end;
+  integer x;
+  x := f(x, x)
+end

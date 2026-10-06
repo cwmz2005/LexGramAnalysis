@@ -1,0 +1,21 @@
+begin
+  integer x;
+  integer y;
+  integer z;
+  integer function f(a);
+  begin
+    integer t;
+    t := a*a;
+    if t>100 then t := t-100 else t := t-1;
+    write(t)
+  end;
+  integer flag;
+  read(x);
+  read(y);
+  z := x-y*x;
+  if z<0 then write(z) else write(x);
+  if x<=y then z := x*y else z := y-x;
+  flag := z-1;
+  if flag<>0 then write(flag) else write(z);
+  write(z)
+end

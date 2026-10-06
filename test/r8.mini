@@ -1,0 +1,12 @@
+begin
+  integer x;
+  integer y;
+  read(x);
+  read(y);
+  if x<y then write(1) else write(0);
+  if x<=y then write(1) else write(0);
+  if x>y then write(1) else write(0);
+  if x>=y then write(1) else write(0);
+  if x=y then write(1) else write(0);
+  if x<>y then write(1) else write(0)
+end

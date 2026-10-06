@@ -1,0 +1,4 @@
+begin
+  integer x_1;
+  read(x_1)
+end

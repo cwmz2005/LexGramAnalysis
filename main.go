@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	// 词法分析测试
 	if len(os.Args) <= 1 {
 		fmt.Println("请将mini源代码文件作为第一个参数传入")
 		return
@@ -15,6 +16,7 @@ func main() {
 	l, e := Lexer.MakeLexer(os.Args[1])
 	if e != nil {
 		fmt.Println("打开文件出错：", e)
+		return
 	}
 	defer l.Close()
 	for {

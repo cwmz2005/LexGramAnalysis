@@ -1,12 +1,12 @@
 begin
   integer k;
-  integer function F(n);
+  integer function f(n);
     begin
       integer n;
-      if n<=0 then F:=1
-      else F:=n*F(n-1)
+      if n<=0 then f:=1
+      else f:=n*f(n-1)
     end;
   read(m);
-  k:=F(m);
+  k:=f(m);
   write(k)
 end

@@ -4,6 +4,6 @@ begin
   integer z;
   x := 1;
   y := 2;
-  z := x+y*x-3;
+  z := x-y*x-3;
   write(z)
 end

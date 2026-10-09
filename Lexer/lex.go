@@ -233,19 +233,19 @@ func (l Lexer) GetFileName() (n string) {
 func (l Lexer) GetLineNumber() int {
 	return l.nowLineIndex + 1
 }
-func (l *Lexer) NextToken() (t Token, err error) { // 当心！值接收者更改行号后原对象不变！！！默认全传拷贝
+func (l *Lexer) NextToken() (t Token) { // 当心！值接收者更改行号后原对象不变！！！默认全传拷贝
 	buffer := ""
 	nextByte := make([]byte, 1)
 	for {
 		_, rerr := l.f.Read(nextByte) // 一次只读一个byte，没读到必是出错
 		if rerr != nil && rerr != io.EOF {
-			return Token{"", ERR}, rerr
+			return Token{"读取出错：" + rerr.Error(), ERR}
 		}
 		var stop, rewind bool
 		if rerr == io.EOF {
 			// 合法的出错
 			if len(buffer) == 0 {
-				return Token{"EOF", EOF}, err
+				return Token{"EOF", EOF}
 			}
 			stop, rewind = true, false // 下一个是最后一个字符，可以无限读下去还是EOF错误，不用回溯一位
 		} else {
@@ -262,7 +262,7 @@ func (l *Lexer) NextToken() (t Token, err error) { // 当心！值接收者更�
 			}
 			if len(buffer) == 0 {
 				// 下一个字符完全非法
-				return Token{string(nextByte[0]), ERR}, nil
+				return Token{string(nextByte[0]), ERR}
 			}
 			break
 		}
@@ -272,25 +272,25 @@ func (l *Lexer) NextToken() (t Token, err error) { // 当心！值接收者更�
 	// buffer现在是一个词
 	if ti := stMap[buffer]; ti != 0 {
 		// 保留字
-		return Token{buffer, ti}, nil
+		return Token{buffer, ti}
 	}
 	if isConstant(buffer) {
-		return Token{buffer, CONSTANT}, nil
+		return Token{buffer, CONSTANT}
 	}
 	if isLegalIdentifier(buffer) {
-		return Token{buffer, IDENTIFIER}, nil
+		return Token{buffer, IDENTIFIER}
 	}
 	if b, t := isLegalDS(buffer); b {
-		return Token{buffer, t}, nil
+		return Token{buffer, t}
 	}
 	if buffer == "\n" {
 		l.nowLineIndex += 1
-		return Token{"EOLN", EOLN}, nil
+		return Token{"EOLN", EOLN}
 	}
-	return Token{buffer + string(nextByte[0]), ERR}, nil
+	return Token{"不合法的符号" + buffer + string(nextByte[0]), ERR}
 }
 
-func MakeLexer(fn string) (l Lexer, err error) {
+func MakeLexer(fn string) (l *Lexer, err error) {
 	f, err := os.Open(fn)
-	return Lexer{f, 0}, err
+	return &Lexer{f, 0}, err
 }

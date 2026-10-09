@@ -5,9 +5,15 @@ import (
 	"os"
 
 	"github.com/cwmz2005/LexGramAnalysis/Lexer"
+	parser "github.com/cwmz2005/LexGramAnalysis/Parser"
 )
 
 func main() {
+	// 语法分析测试
+	p := parser.Parse(os.Args[1])
+	for _, e := range p.Errors {
+		fmt.Println("语法分析错误：", e.Line, "行：", e.Error)
+	}
 	// 词法分析测试
 	if len(os.Args) <= 1 {
 		fmt.Println("请将mini源代码文件作为第一个参数传入")
@@ -20,11 +26,7 @@ func main() {
 	}
 	defer l.Close()
 	for {
-		nt, err := l.NextToken()
-		if err != nil {
-			fmt.Println("下一个Token出错：", err)
-			return
-		}
+		nt := l.NextToken()
 		if nt.TType == Lexer.ERR {
 			fmt.Printf("第%d行：不正确的符号“%s”\n", l.GetLineNumber(), nt.Sign)
 			continue
@@ -34,4 +36,5 @@ func main() {
 			return
 		}
 	}
+
 }

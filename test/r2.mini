@@ -1,3 +1,4 @@
 begin
-  integer x
+  integer x;
+  read(x)
 end

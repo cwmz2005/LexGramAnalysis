@@ -10,7 +10,7 @@ begin
   end;
   read(x);
   read(y);
-  z := x+y*square(x);
+  z := x-y*square(x);
   if z>100 then write(z) else write(0);
   if x<=y then z := x else z := y;
   write(z)
